@@ -210,7 +210,6 @@ uint32_t countPrimes1(uint32_t n) {
 	return count;
 }
 
-#if 0
 // skip 2 for speed. Handle 2 as a special case, then all primes are odd
 // go up to the square root of the number
 int32_t countPrimes2(uint32_t n) {
@@ -224,7 +223,6 @@ int32_t countPrimes2(uint32_t n) {
 	}
 	return count;
 }
-#endif
 
 /*
 	   5   6   7   8   9  10
@@ -280,7 +278,6 @@ float b17(float x[], uint32_t n) {
 	return prod;
 }
 
-#if 0
 // benchmark sum of floating point reciprocals
 // check your answer! SHOULD NOT BE 1.0!!!
 // 1/1 + 1/2 + 1/3 + ... + 1/n
@@ -324,6 +321,7 @@ double b21(uint32_t n) {
 	return sum;
 }
 
+#if 0
 // There are bugs in my fact function. Fix them and benchmark
 double fact(uint32_t n) { /* this is a comment*/
 	double prod = 1.0;
@@ -340,11 +338,6 @@ double fact(uint32_t n) { /* this is a comment*/
  		return prod;
  	return n * fact2(n - 1);
 }
-
-#endif
-
-
-
 
 /*
 	This is matrix multiplication for a matrix of size 10x10
@@ -391,7 +384,6 @@ void matmult2(float ans[], float a[], float b[], uint32_t n) {
 		}
 }
 
-#if 0
 /*
 	matmult2 above is inefficient because you are repeatedly writing ans[i][j],
 	then reading it in again, adding a new multiplication and writing again.
@@ -562,7 +554,7 @@ int main() {
 
 	constexpr uint32_t numPrimes = 100000;
 	benchmark1("countPrimes1", countPrimes1, numPrimes);
-  //	benchmark1("countPrimes2", countPrimes2, numPrimes*10);
+        benchmark1("countPrimes2", countPrimes2, numPrimes*10);
 	benchmark1("countPrimes3", countPrimes3, numPrimes*10);
 
 
@@ -570,15 +562,15 @@ int main() {
 	benchmark3("b16", b16, n2);
 	benchmark3("b17", b17, n2);
 
-	//	benchmark6("b18", b18, n2);
-	//	benchmark6("b19", b19, n2);
-	//	benchmark6("b20", b20, n2);
-  //	benchmark6("b21", b21, n2);
-	//	benchmark6("fact", fact, 50);
-	//	benchmark6("fact2", fact2, 50);
+	benchmark6("b18", b18, n2);
+	benchmark6("b19", b19, n2);
+	benchmark6("b20", b20, n2);
+  	benchmark6("b21", b21, n2);
+       	benchmark6("fact", fact, 50);
+        benchmark6("fact2", fact2, 50);
 
   // matrix benchmarks with three arrays
-  benchmark7("matmult2", matmult2, 1024);
+  //  benchmark7("matmult2", matmult2, 1024);
   //  benchmark7("matmult3", matmult3, 256);
   //  benchmark7("matmult4", matmult4, 256);
 
