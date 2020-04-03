@@ -437,9 +437,8 @@ constexpr double PI = 3.14159265358979;
 double deg2rand(uint32_t n) {
   const double x = 0.001;
   double y = 1;
-  double z = PI / 180;
   for (uint32_t i = 0; i < n; i++) {
-    y = y * x * z;
+    y = y * x * PI / 180;
   }
   return y;
 }
@@ -458,11 +457,11 @@ double grav (uint32_t n) {
   double r = 1.5e12; // distance apart
   const double m1 = 5.972e24; // earth mass
   const double m2 = 7.34767309e22; // moon mass
-  double F = G * m1 * m2 / (r*r);
-  double a = F / m1;
   constexpr double dt = 0.1; // 0.1 second timestep
   for (uint32_t i = 0; i < n; i++) {
-    x = x + (v + 0.5*a * dt) * dt;
+    double F = G * m1 * m2 / (r*r);
+    double a = F / m1;
+    x = x + v * dt + 0.5*a * dt * dt;
     v = v + a * dt;
   }
   return x;
@@ -618,15 +617,15 @@ int main() {
   benchmark6("b18", b18, n2);
   benchmark6("b19", b19, n2);
   benchmark6("b20", b20, n2);
-  benchmark6("b21", b21, n2); 
+  benchmark6("b21", b21, n2); */
   benchmark6("fact", fact, 30);
   benchmark6("fact2", fact2, 30);
-  */
+	
 	
   // matrix benchmarks with three arrays
-  //benchmark7("matmult2", matmult2, 1024);
-  //benchmark7("matmult3", matmult3, 1024);
-  //benchmark7("matmult4", matmult4, 1024);
+  benchmark7("matmult2", matmult2, 1024);
+  benchmark7("matmult3", matmult3, 256);
+  //benchmark7("matmult4", matmult4, 256);
 
   // grav and deg2rand
   benchmark6("deg2rand", deg2rand, n);
