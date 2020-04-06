@@ -468,6 +468,53 @@ double grav (uint32_t n) {
   return x;
 }
 
+uint64_t intadd(uint32_t n) {
+  uint64_t sum = 0;
+  for (int i = 0; i < n; i++)
+    sum += 1;
+  return sum;
+}
+
+uint64_t intmul(uint32_t n) {
+  uint64_t prod = 1;
+  for (int i = 1; i <= n; i++) {
+    prod *= 1;
+  }
+  return prod;
+}
+
+double dbladd (uint32_t n) {
+  double sum = 0.0;
+  for (int i = 0; i < n; i++) {
+    sum = sum + 0.001;
+  }
+  return sum;
+}
+
+double dblsub (uint32_t n) {
+  double sum = 0.0;
+  for (int i = 0; i < n; i++) {
+    sum = sum - 0.001;
+  }
+  return sum;
+}
+
+double dblmul (uint32_t n) {
+  double prod = 1.0;
+  for (int i = 1; i <= n; i++) {
+    prod = prod * 1.000001;
+  }
+  return prod;
+}
+
+double dbldiv (uint32_t n) {
+  double div = 1.0;
+  for (int i = 1; i <= n; i++) {
+    div = div / 1.000001;
+  }
+  return div;
+}
+
 /*
 	benchmarking a few instructions almost never makes sense
 
@@ -578,6 +625,17 @@ void benchmark7(const char msg[], Func f, uint32_t n) {
 	}
 }
 
+// integer parameter returning double
+template<typename Func>
+void benchmark8(const char msg[], Func f, uint32_t n) {
+	for (uint32_t trials = 0; trials < 10; trials++) {
+		clock_t t0 = clock();
+		double res = f(n); // give it to the function to play with
+		clock_t t1 = clock();
+		cout << setw(12) << msg << setw(18) << res << '\t' << (t1-t0) << '\n';
+	}
+}
+
 int main() {
   const uint32_t n = 100000000; // 100 million
   //benchmark1("a1", a1, n);
@@ -629,6 +687,14 @@ int main() {
   //benchmark7("matmult4", matmult4, 1024);
 
   // grav and deg2rand
-  benchmark6("deg2rand", deg2rand, n);
-  benchmark6("grav", grav, n);
+  //benchmark6("deg2rand", deg2rand, n);
+  //benchmark6("grav", grav, n);
+
+  // Lab 8 ints and doubles
+  benchmark1("intadd", intadd, n);
+  benchmark1("intmul", intmul, n);
+  benchmark8("dbladd", dbladd, n);
+  benchmark8("dblsub", dblsub, n);
+  benchmark8("dblmul", dblmul, n);
+  benchmark8("dbldiv", dbldiv, n);
 }
