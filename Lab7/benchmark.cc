@@ -12,7 +12,7 @@ void f();
 
 
 // write this in assembler! count from 0 to n-1
-//uint32_t a1(uint32_t n);
+uint32_t a1(uint32_t n);
 
 /*
 MOV    r0, #N	
@@ -22,7 +22,7 @@ SUB    r1, r0, #1
 
 
 // write this in assembler! count from n down to 0
-//uint32_t a2(uint32_t n);
+uint32_t a2(uint32_t n);
 
 
 
@@ -437,9 +437,8 @@ constexpr double PI = 3.14159265358979;
 double deg2rand(uint32_t n) {
   const double x = 0.001;
   double y = 1;
-  double z = PI / 180;
   for (uint32_t i = 0; i < n; i++) {
-    y = y * x * z;
+    y = y * x * PI / 180;
   }
   return y;
 }
@@ -458,11 +457,11 @@ double grav (uint32_t n) {
   double r = 1.5e12; // distance apart
   const double m1 = 5.972e24; // earth mass
   const double m2 = 7.34767309e22; // moon mass
-  double F = G * m1 * m2 / (r*r);
-  double a = F / m1;
   constexpr double dt = 0.1; // 0.1 second timestep
   for (uint32_t i = 0; i < n; i++) {
-    x = x + (v + 0.5*a * dt) * dt;
+    double F = G * m1 * m2 / (r*r);
+    double a = F / m1;
+    x = x + v * dt + 0.5*a * dt * dt;
     v = v + a * dt;
   }
   return x;
@@ -638,8 +637,8 @@ void benchmark8(const char msg[], Func f, uint32_t n) {
 
 int main() {
   const uint32_t n = 100000000; // 100 million
-  //benchmark1("a1", a1, n);
-  //benchmark1("a2", a2, n);
+  benchmark1("a1", a1, n);
+  benchmark1("a2", a2, n);
 
   /*
   benchmark1("b1", b1, n);
@@ -676,10 +675,10 @@ int main() {
   benchmark6("b18", b18, n2);
   benchmark6("b19", b19, n2);
   benchmark6("b20", b20, n2);
-  benchmark6("b21", b21, n2); 
-  benchmark6("fact", fact, 30);
-  benchmark6("fact2", fact2, 30);
-  */
+  benchmark6("b21", b21, n2); */
+  //benchmark6("fact", fact, 30);
+  //benchmark6("fact2", fact2, 30);
+  
 	
   // matrix benchmarks with three arrays
   //benchmark7("matmult2", matmult2, 1024);
@@ -691,10 +690,10 @@ int main() {
   //benchmark6("grav", grav, n);
 
   // Lab 8 ints and doubles
-  benchmark1("intadd", intadd, n);
-  benchmark1("intmul", intmul, n);
-  benchmark8("dbladd", dbladd, n);
-  benchmark8("dblsub", dblsub, n);
-  benchmark8("dblmul", dblmul, n);
-  benchmark8("dbldiv", dbldiv, n);
+  //benchmark1("intadd", intadd, n);
+  //benchmark1("intmul", intmul, n);
+  //benchmark8("dbladd", dbladd, n);
+  //benchmark8("dblsub", dblsub, n);
+  //benchmark8("dblmul", dblmul, n);
+  //benchmark8("dbldiv", dbldiv, n);
 }
