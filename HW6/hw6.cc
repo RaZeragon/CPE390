@@ -7,7 +7,7 @@ int main() {
   const int n = 5;
 
 	//         r1
-	int a[n] = {5, 4, 3, 2, 1};
+  int a[n] = {5, 4, 3, 2, 1};
 
 	//          r2
   int b[n] = {3, 2, 1, 5, 9};
