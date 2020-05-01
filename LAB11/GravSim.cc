@@ -27,19 +27,18 @@ GravSim::GravSim(const char filename[]) {
 	while (!f.eof()) {
 		f.getline(buf, sizeof(buf));
 		istringstream line(buf);
-		line >> name >> m >> diam >> perihelion >> aphelion >>
-			orbPeriod, rotPeriod;
+		line >> name >> m >> diam >> perihelion >> aphelion >> orbPeriod, rotPeriod;
 		double theta = angle(gen); // pick a random angle to start the orbit
-		cout << "creating body " << name << " orbiting " << orbits << " at angle "
-				 << theta << " radians or " << round(theta * 18000/PI) * 0.01 <<
-			"degrees\n";
+		cout << "creating body " << name << " orbiting " << orbits << " at angle " << theta << " radians or " << round(theta * 18000/PI) * 0.01 << "degrees\n";
+		
 		// compute x,y,z for the body
 		double x = perihelion * cos(theta), y = aphelion * sin(theta), z = 0;
+		
 		// TODO: rotate the frame so aphelion isn't always at 0 angle
-
-		double r = sqrt(x*x+y*y);
+	        double r = sqrt(x*x+y*y);
+		
 		// handle special case for sun: if r = 0, then v = 0
-		double v = r == 0 ? 0 : sqrt(G*m * (2 / r - 1 / aphelion));
+		double v = r == 0 ? 0 : sqrt(G * m * (2 / r - 1 / aphelion));
 
 		double vx = -v * sin(theta), vy = v * cos(theta), vz = 0;
 		bodies.push_back(Body(name, orbits, m,  x, y, z, vx, vy, vz));
@@ -57,7 +56,7 @@ void GravSim::timestep(double dt) {
 		bodies[i].a = a;
 	}
 	for (int i = 0; i < bodies.size(); i++) {
-		bodies[i].pos += bodies[i].v * dt + 0.5 * bodies[i].a * pow(dt,2);
+	        bodies[i].pos += (bodies[i].v + 0.5 * bodies[i].a * dt) * dt; // Got rid of the pow function to reduce speed and also decreased the amount of multiplications necessary
 		bodies[i].v += bodies[i].a * dt;
 	}
 	t += dt;
