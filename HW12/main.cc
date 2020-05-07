@@ -32,7 +32,7 @@ using namespace std;
 extern uint32_t era(uint32_t* array, uint32_t n); //tosthenes
 
 int main() {
-	uint32_t n = 100;
+  uint32_t n = 46369;     //46369
 	uint32_t* sieve = new uint32_t[(n+31)/32];
 	uint32_t count = era(sieve, n);
 	cout << "Primes up to " << n << " = " << count << '\n';

@@ -6,7 +6,7 @@ _Z3eraPjj:
 	mov	r2, r0			@ r2 -> Address to start of array
 	add	r3, r1, #31
 	lsr	r3, #6			@ r3 -> Length of array in bytes
-	str	r4, .FULL		@ r4 -> 0xFFFFFFFF
+	ldr	r4, .FULL		@ r4 -> 0xFFFFFFFF
 	
 .SetBits:
 	str	r4, [r0]
