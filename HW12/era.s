@@ -9,7 +9,8 @@ _Z3eraPjj:
 	ldr	r4, .FULL		@ r4 -> 0xFFFFFFFF
 	
 .SetBits:
-	str	r4, [r0], #4
+	str	r4, [r0]
+	add	r0, #4
 	subs 	r3, #1
 	bne	.SetBits
 	
