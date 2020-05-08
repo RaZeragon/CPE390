@@ -20,7 +20,7 @@ using namespace std;
       count++;
     }
 
-    for (int j = i*i; j <= n; j += 2*i) {  j = i*i to n step 2*i
+    for (int j = 2*i; j <= n; j += i) {  j = i*i to n step 2*i
       isPrime[j] = false
     }
 
@@ -32,7 +32,7 @@ using namespace std;
 extern uint32_t era(uint32_t* array, uint32_t n); //tosthenes
 
 int main() {
-  uint32_t n = 46369;     //46369
+  uint32_t n = 1000000000;     //46369
 	uint32_t* sieve = new uint32_t[(n+31)/32];
 	uint32_t count = era(sieve, n);
 	cout << "Primes up to " << n << " = " << count << '\n';

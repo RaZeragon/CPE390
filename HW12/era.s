@@ -23,7 +23,7 @@ _Z3eraPjj:
 	mov	r6, r3			@ r6 -> index
 	lsr	r6, #6
 	lsl	r6, #2
-	add 	r0, r6
+	add 	r0, r6			@ Possible 3 and instruction
 
 	ldr	r7, [r0]		@ r7 -> Byte
 
@@ -45,6 +45,9 @@ _Z3eraPjj:
 
 .RemoveMul:
         add	r5, #1			@ Add 1 to prime counter
+	ldr	r7, .MAX
+	cmp	r3, r7
+	bge	.L2
 	mul	r6, r3, r3		@ r6 -> i*i
 	cmp	r6, r1
 	bgt	.L2
@@ -71,7 +74,7 @@ _Z3eraPjj:
 .L2:
 	add	r3, #2			@ Add 2 to pos
 	bge	.PrimeFunc
-.ZERO:
-	.word	0x00000000
+.MAX:
+	.word	31623
 .FULL:
 	.word	0xFFFFFFFF
