@@ -1,0 +1,9 @@
+#include <iostream>
+using namespace std;
+
+double deriv(double c[], int n, double x);
+
+int main() {
+  double c[] = {4, 2, 3, 5};
+  deriv(c, 4, 2);
+}
